@@ -2,13 +2,12 @@
 #include <stdio.h>
 #include "tokenizer.h"
 #include "history.h"
-#include <ctype.h>  // To use isdigit();
-#include <string.h>
+// #include <ctype.h>  // To use isdigit();
+//#include <string.h>
 
 int main ()
 
 {
-
   List *history = init_history();// initialize the linked list, allocating memory for it,
                                  //and creating the root node.
 
@@ -26,32 +25,23 @@ int main ()
 
 
     // !<nums> - special num
-
-    if (word[0] == '!' && isdigit(word[1])){
-
-      int val = atoi (word + 1);
-
+    if (word[0] == 'q'){
+      free_history(history);
+      goto done;
+    }
+    if (word[0] == '!'){       
+      int val = atoi (word + 1); //convert string argument to an integer
+      if (val > 0 ){
       printf ("H[%d] %s\n", val,  get_history (history, val));
-
-    }
-
-    // !h show all history
-
-    else if (strcmp (word, "!h\n") == 0){
-
+    }    else {
       print_history(history);
-
     }
+    }
+
+    
 
     // To quite the program using !q
 
-    else if (strcmp (word, "!q\n") == 0){
-
-      free_history(history); 
-
-      goto done;
-
-    }
 
     // Tokenize string
 

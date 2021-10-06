@@ -1,9 +1,6 @@
 #include <stdlib.h>
-
 #include <stdio.h>
-
 #include "history.h"
-
 #include "tokenizer.h"
 
 
@@ -15,7 +12,7 @@ List* init_history(){
 
   List *list = malloc(sizeof(List));
 
-  list->root = malloc(sizeof(Item));
+  list->root = NULL;
 
   return list;
 }
@@ -32,11 +29,45 @@ List* init_history(){
 
 void add_history(List *list, char *str){
   Item *actualNode = (*list).root;
+  //int len; my current guess solution.
 
+  // building the new node.
   Item *newNode = (Item*) malloc(sizeof(Item));
-
-  (*newNode).next = NULL;
   
+  // get length of str before this
+ 
+  newNode->str = str; 
+  newNode->next = NULL;
+
+
+  // if root of "list" is null, just add the node as the root
+
+  if(actualNode == NULL ){
+    list->root=newNode;
+    newNode->id = 0;
+  }
+  // else, traverse to the last node and make its "next" pointer point to the newNode
+  else {
+    while(actualNode->next != NULL ){
+      actualNode = actualNode->next;
+    }
+   
+  actualNode->next = newNode;
+  newNode->id = actualNode->id + 1;
+}
+  // Initialization of len
+
+  int len = 0;
+
+  while(*str != '\0'){
+    len++;
+    str++;
+  }
+  str = str - len;
+  char * copyStr = (char*) malloc(sizeof(char));
+  copyStr = copy_str(str, len);
+  
+  newNode->str = copyStr;
 }
 
 
@@ -55,7 +86,6 @@ char *get_history(List *list, int id)
 
 
   // If history is empty
-
   if (actualNode == NULL)
 
     return "History is empty";
@@ -63,7 +93,6 @@ char *get_history(List *list, int id)
 
 
   while (actualNode != NULL){
-
     if (actualNode->id == id)
 
       return actualNode->str;
@@ -72,16 +101,11 @@ char *get_history(List *list, int id)
 
   }
 
-
-
   return "No such ID";  // ID doesn't exist
 
 
 
 }
-
-
-
 /*Print the entire contents of the list. */
 
 void print_history(List *list)
@@ -92,6 +116,7 @@ void print_history(List *list)
 
 
   while (actualNode != NULL){
+
 
     printf ("H[%d] %s\n", actualNode->id, actualNode->str);
 

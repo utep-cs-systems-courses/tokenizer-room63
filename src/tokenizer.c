@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "tokenizer.h"
 
 /*Return true(non zero) if c is a whitspace character
 ('\t' or ' '). */
@@ -29,7 +30,7 @@ int non_space_char(char c)
 /* Returns a pointer to the first character of the next 
    space-separated word in zero-terminated str.  Return a zero pointer if 
    str does not contain any words. */
-int  count_words(char *str);
+// int  count_words(char *str);
 char *word_start(char *str)
 {
   if (count_words(str) > 0) 
@@ -133,6 +134,7 @@ return  strCopy;
 char **tokenize(char* str)
 {
   int sizeX = count_words( str );
+  
     char **tokens = (char**) malloc((sizeX +1  ) * sizeof( char*));
 
   char* startS = str;
