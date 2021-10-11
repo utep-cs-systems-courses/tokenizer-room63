@@ -8,7 +8,8 @@
 /* Initialize the linked list to keep the history. */
 
 
-List* init_history(){
+List* init_history()
+{
 
   List *list = malloc(sizeof(List));
 
@@ -27,9 +28,10 @@ List* init_history(){
 
 */
 
-void add_history(List *list, char *str){
-  Item *actualNode = (*list).root;
-  //int len; my current guess solution.
+void add_history(List *list, char *str)
+{
+  Item *actualNode = list->root;
+
 
   // building the new node.
   Item *newNode = (Item*) malloc(sizeof(Item));
@@ -53,10 +55,9 @@ void add_history(List *list, char *str){
     }
    
   actualNode->next = newNode;
-  newNode->id = actualNode->id + 1;
+  newNode->id = actualNode->id +1;  //id + 1 is for get the next id when user selected.
 }
-  // Initialization of len
-
+  // Initialization of len.
   int len = 0;
 
   while(*str != '\0'){
@@ -91,7 +92,6 @@ char *get_history(List *list, int id)
     return "History is empty";
 
 
-
   while (actualNode != NULL){
     if (actualNode->id == id)
 
@@ -102,8 +102,6 @@ char *get_history(List *list, int id)
   }
 
   return "No such ID";  // ID doesn't exist
-
-
 
 }
 /*Print the entire contents of the list. */
